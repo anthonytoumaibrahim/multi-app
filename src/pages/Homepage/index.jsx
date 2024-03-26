@@ -1,3 +1,6 @@
+// React Router
+import { Link } from "react-router-dom";
+
 // Apps
 import { apps } from "../../data/apps";
 
@@ -18,21 +21,32 @@ const Homepage = () => {
             name,
             path,
             icon: Icon,
-            className,
             component,
             description,
+            colors,
           } = app;
           return (
-            <div className={`app-card ${className}`} key={index}>
+            <div
+              className="app-card"
+              style={{
+                backgroundColor: colors.bg,
+                boxShadow: `0 6px ${colors.main}`,
+              }}
+              key={index}
+            >
               <div className="content">
-                <Icon className="icon" size={64} />
-                <h2 className="title">{name}</h2>
+                <Icon size={64} style={{ color: colors.main }} />
+                <h2 style={{ color: colors.main }}>{name}</h2>
                 <p>{description}</p>
               </div>
-              <button className="card-button">
+              <Link
+                to={`/apps/${path}`}
+                className="card-button"
+                style={{ color: colors.main }}
+              >
                 Go To {name}
                 <FaArrowRight size={24} />
-              </button>
+              </Link>
             </div>
           );
         })}

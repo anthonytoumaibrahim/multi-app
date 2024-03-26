@@ -27,39 +27,4 @@
   gap: 10px;
   cursor: pointer;
 }
-.card-button:hover {
-  opacity: 0.65;
-}
 
-/* Weather */
-.weather-card {
-  background-color: var(--primary-lightest-col);
-  box-shadow: 0 6px var(--primary-col);
-}
-.weather-card .title,
-.weather-card .icon,
-.weather-card .card-button {
-  color: var(--primary-col);
-}
-
-/* Calculator */
-.calculator-card {
-  background-color: var(--secondary-lightest-col);
-  box-shadow: 0 6px var(--secondary-col);
-}
-.calculator-card .title,
-.calculator-card .icon,
-.calculator-card .card-button {
-  color: var(--secondary-col);
-}
-
-/* Sticky notes */
-.sticky-notes-card {
-  background-color: var(--tertiary-lightest-col);
-  box-shadow: 0 6px var(--tertiary-col);
-}
-.sticky-notes-card .title,
-.sticky-notes-card .icon,
-.sticky-notes-card .card-button {
-  color: var(--tertiary-col);
-}

@@ -11,27 +11,36 @@ const apps = [
     name: "Weather App",
     path: "weather",
     icon: FaCloudSun,
-    className: "weather-card",
     component: <Weather />,
     description:
       "Check out the current weather and the expectations for the upcoming 3 days.",
+    colors: {
+      main: "#4f46e5",
+      bg: "#eef2ff",
+    },
   },
   {
     name: "Calculator",
     path: "calculator",
     icon: FaCalculator,
-    className: "calculator-card",
     component: <Calculator />,
     description: "The most basic tool: the calculator!",
+    colors: {
+      main: "#0d9488",
+      bg: "#f0fdfa",
+    },
   },
   {
     name: "Sticky Notes",
     path: "sticky-notes",
     icon: FaNoteSticky,
-    className: "sticky-notes-card",
     component: <StickyNotes />,
     description:
       "Draggable sticky notes which can be removed, added and edited.",
+    colors: {
+      main: "#d97706",
+      bg: "#fffbeb",
+    },
   },
 ];
 
