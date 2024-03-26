@@ -10,11 +10,11 @@ import "./styles/header.css";
 // Assets
 import logo from "./assets/images/logo.svg";
 
-// Pages & Apps
+// Pages
 import Homepage from "./pages/Homepage";
-import Weather from "./pages/Apps/Weather";
-import Calculator from "./pages/Apps/Calculator";
-import StickyNotes from "./pages/Apps/StickyNotes";
+
+// Apps Data
+import { apps } from "./data/apps";
 
 const App = () => {
   return (
@@ -30,9 +30,9 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/apps">
-            <Route path="weather" element={<Weather />} />
-            <Route path="calculator" element={<Calculator />} />
-            <Route path="sticky-notes" element={<StickyNotes />} />
+            {apps.map((app, index) => (
+              <Route key={index} path={app.path} element={app.component} />
+            ))}
           </Route>
         </Routes>
       </main>
