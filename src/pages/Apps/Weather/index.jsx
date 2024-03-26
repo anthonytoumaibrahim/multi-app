@@ -6,7 +6,7 @@ import AppTitle from "../components/AppTitle";
 import { apps } from "../../../data/apps";
 
 const Weather = () => {
-  const app = apps.filter((app) => app.path === "sticky-notes")[0];
+  const app = apps.filter((app) => app.path === "weather")[0];
 
   return (
     <>
