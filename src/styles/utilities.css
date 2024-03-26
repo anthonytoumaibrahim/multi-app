@@ -1,0 +1,18 @@
+.font-bold {
+  font-weight: bold;
+}
+.text-sm {
+  font-size: var(--font-size-sm);
+}
+.margin-b {
+  margin-bottom: 20px;
+}
+.italic {
+  font-style: italic;
+}
+.flex {
+  display: flex;
+}
+.align-center {
+  align-items: center;
+}
