@@ -17,14 +17,7 @@ const Homepage = () => {
 
       <div className="apps-selection">
         {apps.map((app, index) => {
-          const {
-            name,
-            path,
-            icon: Icon,
-            component,
-            description,
-            colors,
-          } = app;
+          const { name, path, icon: Icon, description, colors } = app;
           return (
             <div
               className="app-card"

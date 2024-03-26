@@ -1,0 +1,11 @@
+.app-title {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.back-to-apps {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
