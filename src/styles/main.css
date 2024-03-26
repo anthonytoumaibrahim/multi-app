@@ -1,9 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
 :root {
   --primary-col: #4f46e5;
   --primary-lightest-col: #eef2ff;
 
   --secondary-col: #0d9488;
   --secondary-lightest-col: #f0fdfa;
+
+  --tertiary-col: #d97706;
+  --tertiary-lightest-col: #fffbeb;
 
   --error-col: #dc2626;
   --error-light-col: #fee2e2;
@@ -17,6 +22,8 @@
   --font-size-xl: 1.25rem;
   --font-size-2xl: 1.5rem;
   --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2rem;
+  --font-size-5xl: 2.5rem;
 
   --line-height-xl: 2.25rem;
   --line-height-lg: 1.75rem;
@@ -37,7 +44,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-weight: 500;
+  font-weight: 700;
 }
 h1 {
   font-size: var(--font-size-3xl);
