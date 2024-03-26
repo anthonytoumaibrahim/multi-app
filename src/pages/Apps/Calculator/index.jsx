@@ -5,6 +5,9 @@ import "./styles.css";
 import AppTitle from "../components/AppTitle";
 import { apps } from "../../../data/apps";
 
+// Icons
+import { FaPlus, FaMinus, FaTimes, FaEquals, FaDivide } from "react-icons/fa";
+
 const Calculator = () => {
   const app = apps.filter((app) => app.path === "calculator")[0];
 
@@ -24,7 +27,9 @@ const Calculator = () => {
               <button>8</button>
               <button>9</button>
             </div>
-            <button className="operator-button">*</button>
+            <button className="operator-button">
+              <FaTimes size={20} />
+            </button>
           </div>
           <div className="row">
             <div className="numbers">
@@ -32,7 +37,9 @@ const Calculator = () => {
               <button>5</button>
               <button>6</button>
             </div>
-            <button className="operator-button">-</button>
+            <button className="operator-button">
+              <FaMinus size={20} />
+            </button>
           </div>
           <div className="row">
             <div className="numbers">
@@ -40,14 +47,21 @@ const Calculator = () => {
               <button>2</button>
               <button>3</button>
             </div>
-            <button className="operator-button">+</button>
+            <button className="operator-button">
+              <FaPlus size={20} />
+            </button>
           </div>
           <div className="row">
             <div className="numbers">
               <span></span>
               <button>0</button>
+              <button className="operator-button">
+                <FaDivide size={20} />
+              </button>
             </div>
-            <button className="operator-button">=</button>
+            <button className="operator-button">
+              <FaEquals size={20} />
+            </button>
           </div>
         </div>
       </div>
