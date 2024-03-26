@@ -24,12 +24,14 @@
   justify-content: center;
   cursor: pointer;
   outline: none;
+  z-index: 10;
 }
 .add-sticky-button:hover {
   background-color: #e2953d;
 }
 .board .sticky-card {
   padding: 20px;
+  padding-top: 30px;
   background-color: #fde68a;
   box-shadow: 0 6px #d97706;
   border: 1px solid #d97706;
@@ -38,6 +40,7 @@
   height: 240px;
   position: absolute;
   border-radius: 10px;
+  cursor: move;
 }
 .board .sticky-card textarea {
   background: none;
@@ -45,10 +48,35 @@
   resize: none;
   height: 100%;
   outline: none;
-  color: #d97706;
+  color: #333333;
 }
 .board .sticky-card textarea::placeholder {
-  color: #d97706;
+  color: #f59e0b;
 }
-.board .sticky-card::after {
+.board .sticky-card .delete-button {
+  color: #d97706;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+.board .sticky-card .delete-button:hover {
+  opacity: 0.75;
+}
+
+/* https://css-tricks.com/almanac/properties/s/scrollbar/ */
+.board .sticky-card textarea::-webkit-scrollbar {
+  width: 0.5em;
+}
+.board .sticky-card textarea::-webkit-scrollbar-track {
+  margin: 10px 0;
+}
+.board .sticky-card textarea::-webkit-scrollbar-thumb {
+  width: 0.25rem;
+  background-color: #d97706;
+  border-radius: 10px;
+  cursor: pointer;
 }

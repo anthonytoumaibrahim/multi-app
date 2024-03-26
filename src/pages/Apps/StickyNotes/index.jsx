@@ -8,7 +8,7 @@ import Draggable from "react-draggable";
 import "./styles.css";
 
 // Icons
-import { FaPlus } from "react-icons/fa6";
+import { FaPlus, FaTimes } from "react-icons/fa";
 
 // Apps
 import AppTitle from "../components/AppTitle";
@@ -28,8 +28,8 @@ const StickyNotes = () => {
       {
         id: id,
         text: "",
-        x: Math.floor(Math.random() * 200),
-        y: Math.floor(Math.random() * 200),
+        x: Math.floor(Math.random() * 400),
+        y: Math.floor(Math.random() * 400),
       },
     ]);
   };
@@ -45,6 +45,11 @@ const StickyNotes = () => {
           }
         : card
     );
+    setCards(newCards);
+  };
+
+  const deleteCard = (id) => {
+    const newCards = cards.filter((card) => card.id !== id);
     setCards(newCards);
   };
 
@@ -79,6 +84,12 @@ const StickyNotes = () => {
               }
             >
               <div className="sticky-card">
+                <button
+                  className="delete-button"
+                  onClick={() => deleteCard(id)}
+                >
+                  <FaTimes size={20} />
+                </button>
                 <textarea
                   value={text}
                   onChange={(e) => updateCard({ id: id, text: e.target.value })}
