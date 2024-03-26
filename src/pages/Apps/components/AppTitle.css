@@ -4,6 +4,9 @@
   align-items: center;
   gap: 20px;
 }
+.app-title > svg {
+  flex-shrink: 0;
+}
 .back-to-apps {
   display: flex;
   gap: 10px;

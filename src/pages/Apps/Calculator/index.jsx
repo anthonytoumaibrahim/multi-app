@@ -123,7 +123,7 @@ const Calculator = () => {
                 const { type, icon: Icon, text } = operation;
                 if (operation?.type) {
                   return (
-                    <button key={index} className="operator-button">
+                    <button key={index} className="operator-button font-bold">
                       {operation?.icon ? <Icon size={24} /> : text}
                     </button>
                   );

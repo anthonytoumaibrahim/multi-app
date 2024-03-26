@@ -12,8 +12,8 @@ import { FaArrowRight } from "react-icons/fa6";
 
 const Homepage = () => {
   return (
-    <section className="welcome">
-      <h1 className="margin-b">Welcome to Multi App!</h1>
+    <section>
+      <h1 className="margin-b text-center">Welcome to Multi App!</h1>
 
       <div className="apps-selection">
         {apps.map((app, index) => {
