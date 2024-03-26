@@ -25,24 +25,18 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 5px;
 }
-.calculator .operations .numbers {
-  grid-column: span 3 / span 3;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 5px;
-}
-.calculator .operations .numbers button,
+.calculator .operations .row .operator-button-number,
 .calculator .operations .row .operator-button {
   padding: 20px;
   border-radius: 10px;
   font-size: 1.75rem;
   cursor: pointer;
 }
-.calculator .operations .numbers button:hover,
+.calculator .operations .row .operator-button-number:hover,
 .calculator .operations .row .operator-button:hover {
   opacity: 0.75;
 }
-.calculator .operations .numbers button:not(.operator-button) {
+.calculator .operations .row .operator-button-number {
   background-color: #0d9488;
   border: none;
   color: #ffffff;

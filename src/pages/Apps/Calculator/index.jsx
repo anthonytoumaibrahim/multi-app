@@ -1,3 +1,6 @@
+// React stuff
+import { useState, useEffect } from "react";
+
 // Styles
 import "./styles.css";
 
@@ -11,6 +14,99 @@ import { FaPlus, FaMinus, FaTimes, FaEquals, FaDivide } from "react-icons/fa";
 const Calculator = () => {
   const app = apps.filter((app) => app.path === "calculator")[0];
 
+  const [operation, setOperation] = useState({
+    num: 0,
+    sign: "+",
+    result: 0,
+  });
+
+  const layout = [
+    [
+      7,
+      8,
+      9,
+      {
+        type: "*",
+        icon: FaTimes,
+      },
+    ],
+    [
+      4,
+      5,
+      6,
+      {
+        type: "-",
+        icon: FaMinus,
+      },
+    ],
+    [
+      1,
+      2,
+      3,
+      {
+        type: "-",
+        icon: FaPlus,
+      },
+    ],
+    [
+      0,
+      {
+        type: ".",
+        text: ".",
+      },
+      {
+        type: "/",
+        icon: FaDivide,
+      },
+      {
+        type: "=",
+        icon: FaEquals,
+      },
+    ],
+  ];
+
+  const addOperation = (op) => {
+    setOperation(operation + op);
+  };
+
+  const calculateResult = () => {
+    try {
+      const eval_operation = eval(operation);
+      setOperation(eval_operation);
+    } catch (err) {}
+  };
+
+  const reset = () => {
+    setOperation("");
+  };
+
+  // Add event listener to check for keyboard press
+  useEffect(() => {
+    document.addEventListener("keydown", (e) => {
+      const key = e.key.toLowerCase();
+      const chars = [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "/",
+        "+",
+        "-",
+        "*",
+        ".",
+      ];
+      if (chars.includes(key)) {
+        addOperation(key);
+      }
+    });
+  }, []);
+
   return (
     <>
       <AppTitle icon={app.icon} color={app.colors.main} title={app.name}>
@@ -18,51 +114,28 @@ const Calculator = () => {
       </AppTitle>
 
       <div className="calculator">
-        <h1 className="result">0</h1>
+        <h1 className="result">{operation.result}</h1>
 
         <div className="operations">
-          <div className="row">
-            <div className="numbers">
-              <button>7</button>
-              <button>8</button>
-              <button>9</button>
+          {layout.map((row, index) => (
+            <div className="row" key={index}>
+              {row.map((operation, index) => {
+                const { type, icon: Icon, text } = operation;
+                if (operation?.type) {
+                  return (
+                    <button key={index} className="operator-button">
+                      {operation?.icon ? <Icon size={24} /> : text}
+                    </button>
+                  );
+                }
+                return (
+                  <button key={index} className="operator-button-number">
+                    {operation}
+                  </button>
+                );
+              })}
             </div>
-            <button className="operator-button">
-              <FaTimes size={20} />
-            </button>
-          </div>
-          <div className="row">
-            <div className="numbers">
-              <button>4</button>
-              <button>5</button>
-              <button>6</button>
-            </div>
-            <button className="operator-button">
-              <FaMinus size={20} />
-            </button>
-          </div>
-          <div className="row">
-            <div className="numbers">
-              <button>1</button>
-              <button>2</button>
-              <button>3</button>
-            </div>
-            <button className="operator-button">
-              <FaPlus size={20} />
-            </button>
-          </div>
-          <div className="row">
-            <div className="numbers">
-              <span></span>
-              <button>0</button>
-              <button className="operator-button">
-                <FaDivide size={20} />
-              </button>
-            </div>
-            <button className="operator-button">
-              <FaEquals size={20} />
-            </button>
-          </div>
+          ))}
         </div>
       </div>
     </>
