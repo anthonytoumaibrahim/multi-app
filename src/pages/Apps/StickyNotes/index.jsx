@@ -8,7 +8,7 @@ import Draggable from "react-draggable";
 import "./styles.css";
 
 // Icons
-import { FaPlus, FaTimes } from "react-icons/fa";
+import { FaPlus, FaRedo, FaTrash, FaBold, FaItalic } from "react-icons/fa";
 
 // Apps
 import AppTitle from "../components/AppTitle";
@@ -30,11 +30,20 @@ const StickyNotes = () => {
         text: "",
         x: Math.floor(Math.random() * 400),
         y: Math.floor(Math.random() * 400),
+        bold: false,
+        italic: false,
       },
     ]);
   };
 
-  const updateCard = ({ id, text = null, x = null, y = null }) => {
+  const updateCard = ({
+    id,
+    text = null,
+    x = null,
+    y = null,
+    bold = null,
+    italic = null,
+  }) => {
     const newCards = cards.map((card) =>
       card.id === id
         ? {
@@ -42,6 +51,8 @@ const StickyNotes = () => {
             text: text ?? card.text,
             x: x ?? card.x,
             y: y ?? card.y,
+            bold: bold ?? card.bold,
+            italic: italic ?? card.italic,
           }
         : card
     );
@@ -65,11 +76,16 @@ const StickyNotes = () => {
       </AppTitle>
 
       <div className="board">
-        <button className="add-sticky-button" onClick={addCard}>
-          <FaPlus size={32} />
-        </button>
+        <div className="action-buttons">
+          <button onClick={addCard} title="Add Card">
+            <FaPlus size={24} />
+          </button>
+          <button onClick={() => setCards([])} title="Reset">
+            <FaRedo size={24} />
+          </button>
+        </div>
         {cards.map((card) => {
-          const { id, text, x, y } = card;
+          const { id, text, x, y, bold, italic } = card;
           return (
             <Draggable
               key={id}
@@ -84,16 +100,39 @@ const StickyNotes = () => {
               }
             >
               <div className="sticky-card">
-                <button
-                  className="delete-button"
-                  onClick={() => deleteCard(id)}
-                >
-                  <FaTimes size={20} />
-                </button>
+                <div className="card-buttons">
+                  <button
+                    onClick={() =>
+                      updateCard({
+                        id: id,
+                        italic: !italic,
+                      })
+                    }
+                  >
+                    <FaItalic size={18} />
+                  </button>
+                  <button
+                    onClick={() =>
+                      updateCard({
+                        id: id,
+                        bold: !bold,
+                      })
+                    }
+                  >
+                    <FaBold size={18} />
+                  </button>
+                  <button onClick={() => deleteCard(id)}>
+                    <FaTrash size={18} />
+                  </button>
+                </div>
                 <textarea
                   value={text}
                   onChange={(e) => updateCard({ id: id, text: e.target.value })}
                   placeholder="Write your note..."
+                  style={{
+                    fontWeight: card.bold ? "bold" : "",
+                    fontStyle: card.italic ? "italic" : "",
+                  }}
                 ></textarea>
               </div>
             </Draggable>
