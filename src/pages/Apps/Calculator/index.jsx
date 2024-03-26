@@ -14,42 +14,38 @@ import { FaPlus, FaMinus, FaTimes, FaEquals, FaDivide } from "react-icons/fa";
 const Calculator = () => {
   const app = apps.filter((app) => app.path === "calculator")[0];
 
-  const [operation, setOperation] = useState({
-    num: 0,
-    sign: "+",
-    result: 0,
-  });
+  const [operation, setOperation] = useState("");
 
   const layout = [
     [
-      7,
-      8,
-      9,
+      "7",
+      "8",
+      "9",
       {
         type: "*",
         icon: FaTimes,
       },
     ],
     [
-      4,
-      5,
-      6,
+      "4",
+      "5",
+      "6",
       {
         type: "-",
         icon: FaMinus,
       },
     ],
     [
-      1,
-      2,
-      3,
+      "1",
+      "2",
+      "3",
       {
-        type: "-",
+        type: "+",
         icon: FaPlus,
       },
     ],
     [
-      0,
+      "0",
       {
         type: ".",
         text: ".",
@@ -66,7 +62,7 @@ const Calculator = () => {
   ];
 
   const addOperation = (op) => {
-    setOperation(operation + op);
+    setOperation(operation.concat(op));
   };
 
   const calculateResult = () => {
@@ -81,31 +77,44 @@ const Calculator = () => {
   };
 
   // Add event listener to check for keyboard press
+  const handleKeyDown = (e) => {
+    const key = e.key.toLowerCase();
+    switch (key) {
+      case "backspace":
+        reset();
+        break;
+      case "enter":
+        calculateResult();
+        break;
+      default:
+    }
+    const chars = [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "/",
+      "+",
+      "-",
+      "*",
+      ".",
+    ];
+    if (chars.includes(key)) {
+      addOperation(key);
+    }
+  };
   useEffect(() => {
-    document.addEventListener("keydown", (e) => {
-      const key = e.key.toLowerCase();
-      const chars = [
-        "0",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "/",
-        "+",
-        "-",
-        "*",
-        ".",
-      ];
-      if (chars.includes(key)) {
-        addOperation(key);
-      }
-    });
-  }, []);
+    document.addEventListener("keydown", handleKeyDown);
+
+    // Cleanup, thanks to: https://stackoverflow.com/a/61740188
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  });
 
   return (
     <>
@@ -114,7 +123,7 @@ const Calculator = () => {
       </AppTitle>
 
       <div className="calculator">
-        <h1 className="result">{operation.result}</h1>
+        <h1 className="result">{operation || "0"}</h1>
 
         <div className="operations">
           {layout.map((row, index) => (
@@ -123,13 +132,21 @@ const Calculator = () => {
                 const { type, icon: Icon, text } = operation;
                 if (operation?.type) {
                   return (
-                    <button key={index} className="operator-button font-bold">
+                    <button
+                      key={index}
+                      className="operator-button font-bold"
+                      onClick={() => addOperation(type)}
+                    >
                       {operation?.icon ? <Icon size={24} /> : text}
                     </button>
                   );
                 }
                 return (
-                  <button key={index} className="operator-button-number">
+                  <button
+                    key={index}
+                    className="operator-button-number"
+                    onClick={() => addOperation(operation)}
+                  >
                     {operation}
                   </button>
                 );
