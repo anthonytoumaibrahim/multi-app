@@ -36,9 +36,11 @@ const WeatherCard = ({
     "Friday",
     "Saturday",
   ];
+  // Thanks to: https://stackoverflow.com/a/8215631
+  const isToday = new Date().toDateString() === new Date(time).toDateString();
   return (
     <div className="weather-card">
-      <h3>{week_days[new Date(time).getDay()]}</h3>
+      <h3>{isToday ? "Today" : week_days[new Date(time).getDay()]}</h3>
       <div className="temperature">
         <img
           src={
