@@ -1,15 +1,21 @@
 const WeatherCard = ({
-  time = null,
-  temperature = 0,
-  apparent_temperature = null,
-  min_temperature = null,
-  max_temperature = null,
-  precipitation = 0,
-  rain = 0,
-  sunrise = null,
-  sunset = null,
+  time = "",
+  temperature = 0.0,
+  min_temperature = 0.0,
+  max_temperature = 0.0,
+  precipitation = 0.0,
+  rain = 0.0,
+  wind_speed = 0.0,
+  sunrise = "",
+  sunset = "",
+  units = {
+    temp: "",
+    precipitation: "",
+    rain: "",
+    wind: "",
+  },
 }) => {
-  return <div>WeatherCard</div>;
+  return <div className="weather-card">WeatherCard</div>;
 };
 
 export default WeatherCard;

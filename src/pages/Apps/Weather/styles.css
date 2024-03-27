@@ -1,4 +1,40 @@
+.today-weather-card {
+  min-height: 320px;
+  background-color: #97c7e7;
+  border-radius: 10px;
+  padding: 20px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.today-weather-card .time {
+  display: flex;
+  flex-direction: column;
+}
+.today-weather-card .temperature {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.today-weather-card .temperature h1 {
+  font-size: 2.85rem;
+}
+.today-weather-card .statistics {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 .weather-cards {
   display: grid;
-  
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.weather-card {
+  padding: 20px;
+  border: 1px solid #ececec;
+  border-radius: 10px;
 }
