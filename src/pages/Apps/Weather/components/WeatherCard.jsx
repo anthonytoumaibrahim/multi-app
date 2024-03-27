@@ -23,9 +23,18 @@ const WeatherCard = ({
     wind: "",
   },
 }) => {
+  const week_days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   return (
     <div className="weather-card">
-      <p>{new Date(time).toLocaleDateString()}</p>
+      <h3>{week_days[new Date(time).getDay()]}</h3>
       <div className="temperature">
         <img
           src={

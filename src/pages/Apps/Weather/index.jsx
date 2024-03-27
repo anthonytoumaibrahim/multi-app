@@ -96,7 +96,7 @@ const Weather = () => {
       ],
       precipitation_sum: [0.0, 0.0, 0.0, 0.0],
       rain_sum: [0.0, 0.0, 0.0, 0.0],
-      precipitation_probability_max: [0, 0, 0, 0],
+      precipitation_probability_max: [20, 30, 60, 100],
       wind_speed_10m_max: [15.8, 10.8, 13.5, 9.0],
     },
   });
@@ -104,19 +104,19 @@ const Weather = () => {
   const API_URL =
     "https://api.open-meteo.com/v1/forecast?latitude=33.8933&longitude=35.5016&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,weather_code,cloud_cover,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,rain_sum,precipitation_probability_max,wind_speed_10m_max&forecast_days=4&timezone=Asia%2FBeirut";
 
-  useEffect(() => {
-    // Fetch Weather API data on load
-    const fetchWeatherData = async () => {
-      try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        setWeatherData(data);
-      } catch (error) {
-        console.error("An error has occurred: ", error);
-      }
-    };
-    fetchWeatherData();
-  }, []);
+  // useEffect(() => {
+  //   // Fetch Weather API data on load
+  //   const fetchWeatherData = async () => {
+  //     try {
+  //       const response = await fetch(API_URL);
+  //       const data = await response.json();
+  //       setWeatherData(data);
+  //     } catch (error) {
+  //       console.error("An error has occurred: ", error);
+  //     }
+  //   };
+  //   fetchWeatherData();
+  // }, []);
 
   return (
     <>
@@ -155,11 +155,11 @@ const Weather = () => {
           />
           <div>
             <h1>
-              {weatherData?.current.temperature_2m}{" "}
+              {Math.round(weatherData?.current.temperature_2m)}{" "}
               <sup>{weatherData?.current_units.temperature_2m}</sup>
             </h1>
             <p>
-              Feels like {weatherData?.current.apparent_temperature}
+              Feels like {Math.round(weatherData?.current.apparent_temperature)}
               <sup>{weatherData?.current_units.apparent_temperature}</sup>
             </p>
           </div>
@@ -205,7 +205,6 @@ const Weather = () => {
           </div>
         </div>
       </div>
-
       <section className="weather-cards">
         {weatherData?.daily.time.map((date, index) => {
           const [
@@ -219,8 +218,8 @@ const Weather = () => {
             sunset,
           ] = [
             date,
-            weatherData?.daily.temperature_2m_min[index],
-            weatherData?.daily.temperature_2m_max[index],
+            Math.round(weatherData?.daily.temperature_2m_min[index]),
+            Math.round(weatherData?.daily.temperature_2m_max[index]),
             weatherData?.daily.precipitation_probability_max[index],
             weatherData?.daily.rain_sum[index],
             weatherData?.daily.wind_speed_10m_max[index],

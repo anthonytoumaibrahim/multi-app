@@ -32,6 +32,10 @@
   align-items: start;
   justify-content: space-around;
   text-align: center;
+  background-color: rgba(79, 70, 229, 0.35);
+  padding: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(20px);
 }
 .today-weather-card .statistics .statistic {
   display: flex;
