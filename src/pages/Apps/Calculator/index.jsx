@@ -9,7 +9,15 @@ import AppTitle from "../components/AppTitle";
 import { apps } from "../../../data/apps";
 
 // Icons
-import { FaPlus, FaMinus, FaTimes, FaEquals, FaDivide } from "react-icons/fa";
+import {
+  FaPlus,
+  FaMinus,
+  FaTimes,
+  FaEquals,
+  FaDivide,
+  FaSuperscript,
+  FaBackspace,
+} from "react-icons/fa";
 
 const Calculator = () => {
   const app = apps.filter((app) => app.path === "calculator")[0];
@@ -23,14 +31,16 @@ const Calculator = () => {
         text: "C",
       },
       {
-        type: "empty",
-      },
-      {
-        type: "empty",
+        type: "**",
+        icon: FaSuperscript,
       },
       {
         type: "/",
         icon: FaDivide,
+      },
+      {
+        type: "remove",
+        icon: FaBackspace,
       },
     ],
     [
@@ -87,6 +97,10 @@ const Calculator = () => {
     }
   };
 
+  const remove = () => {
+    setOperation(operation.slice(0, operation.length - 1));
+  };
+
   const reset = () => {
     setOperation("");
   };
@@ -96,6 +110,9 @@ const Calculator = () => {
     const key = e.key.toLowerCase();
     switch (key) {
       case "backspace":
+        remove();
+        break;
+      case "c":
         reset();
         break;
       case "enter":
@@ -154,6 +171,9 @@ const Calculator = () => {
                       style={{ gridColumn: `span ${span} / span ${span}` }}
                       onClick={() => {
                         switch (type) {
+                          case "remove":
+                            remove();
+                            break;
                           case "=":
                             calculateResult();
                             break;
