@@ -5,6 +5,10 @@ import "./WeatherCard.css";
 import sunny_icon from "../images/icons/sunny.png";
 import cloudy_icon from "../images/icons/cloudy.png";
 import rainy_icon from "../images/icons/rainy.png";
+import mildly_cloudy_icon from "../images/icons/mildly-cloudy.png";
+
+// Icons
+import { FaWind, FaCloudRain } from "react-icons/fa";
 
 const WeatherCard = ({
   time = "",
@@ -38,23 +42,41 @@ const WeatherCard = ({
       <div className="temperature">
         <img
           src={
-            precipitation <= 25
+            precipitation <= 10
               ? sunny_icon
+              : precipitation <= 30
+              ? mildly_cloudy_icon
               : precipitation <= 70
               ? cloudy_icon
               : rainy_icon
           }
           alt=""
         />
-        <div>
+        <div className="text-end">
           <h2>
             {max_temperature}
-            <sup>{units.temp}</sup>
+            {units.temp}
           </h2>
           <h3>
             {min_temperature}
-            <sup>{units.temp}</sup>
+            {units.temp}
           </h3>
+        </div>
+      </div>
+      <div className="statistics">
+        <div className="statistic">
+          <FaWind size={16} />
+          <span>
+            {wind_speed}
+            {units.wind}
+          </span>
+        </div>
+        <div className="statistic">
+          <FaCloudRain size={16} />
+          <span>
+            {precipitation}
+            {units.precipitation}
+          </span>
         </div>
       </div>
     </div>

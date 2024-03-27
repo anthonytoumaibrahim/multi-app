@@ -26,7 +26,7 @@ const App = () => {
           </Link>
         </nav>
       </header>
-      <main className="container">
+      <main className="container margin-b">
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/apps">

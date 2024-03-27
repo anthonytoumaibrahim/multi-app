@@ -29,23 +29,14 @@ import mildly_cloudy_bg from "./images/midly-cloudy-bg.jpg";
 const Weather = () => {
   const app = apps.filter((app) => app.path === "weather")[0];
 
+  // Used dummy data for testing
   const [weatherData, setWeatherData] = useState({
-    latitude: 33.875,
-    longitude: 35.5,
-    generationtime_ms: 0.18405914306640625,
-    utc_offset_seconds: 0,
-    timezone: "GMT",
-    timezone_abbreviation: "GMT",
-    elevation: 49.0,
     current_units: {
-      time: "iso8601",
-      interval: "seconds",
       temperature_2m: "°C",
       relative_humidity_2m: "%",
       apparent_temperature: "°C",
       precipitation: "mm",
       rain: "mm",
-      weather_code: "wmo code",
       cloud_cover: "%",
       wind_speed_10m: "km/h",
     },
@@ -96,7 +87,7 @@ const Weather = () => {
       ],
       precipitation_sum: [0.0, 0.0, 0.0, 0.0],
       rain_sum: [0.0, 0.0, 0.0, 0.0],
-      precipitation_probability_max: [20, 30, 60, 100],
+      precipitation_probability_max: [0, 30, 60, 100],
       wind_speed_10m_max: [15.8, 10.8, 13.5, 9.0],
     },
   });
@@ -135,7 +126,7 @@ const Weather = () => {
         }}
       >
         <div className="time">
-          <strong>Current weather</strong>
+          <strong>Current weather in Beirut, Lebanon</strong>
           <span>
             {new Date(weatherData?.current.time).toLocaleTimeString()} (last
             update)
@@ -155,12 +146,12 @@ const Weather = () => {
           />
           <div>
             <h1>
-              {Math.round(weatherData?.current.temperature_2m)}{" "}
-              <sup>{weatherData?.current_units.temperature_2m}</sup>
+              {Math.round(weatherData?.current.temperature_2m)}
+              {weatherData?.current_units.temperature_2m}
             </h1>
             <p>
               Feels like {Math.round(weatherData?.current.apparent_temperature)}
-              <sup>{weatherData?.current_units.apparent_temperature}</sup>
+              {weatherData?.current_units.apparent_temperature}
             </p>
           </div>
         </div>

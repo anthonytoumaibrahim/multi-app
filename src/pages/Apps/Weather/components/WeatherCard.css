@@ -12,3 +12,15 @@
   justify-content: space-between;
   align-items: center;
 }
+.weather-card .statistics {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.weather-card .statistics .statistic {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #8c87e9;
+}
