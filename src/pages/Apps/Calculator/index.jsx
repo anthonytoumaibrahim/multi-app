@@ -91,13 +91,17 @@ const Calculator = () => {
   const calculateResult = () => {
     try {
       const eval_operation = eval(operation);
-      setOperation(eval_operation);
+      setOperation(eval_operation.toString());
     } catch (err) {
       setOperation("");
     }
   };
 
   const remove = () => {
+    if (operation.length < 1) {
+      setOperation("");
+      return;
+    }
     setOperation(operation.slice(0, operation.length - 1));
   };
 
