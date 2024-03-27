@@ -18,6 +18,22 @@ const Calculator = () => {
 
   const layout = [
     [
+      {
+        type: "clear",
+        text: "C",
+      },
+      {
+        type: "empty",
+      },
+      {
+        type: "empty",
+      },
+      {
+        type: "/",
+        icon: FaDivide,
+      },
+    ],
+    [
       "7",
       "8",
       "9",
@@ -51,25 +67,24 @@ const Calculator = () => {
         text: ".",
       },
       {
-        type: "/",
-        icon: FaDivide,
-      },
-      {
         type: "=",
         icon: FaEquals,
+        span: 2,
       },
     ],
   ];
 
   const addOperation = (op) => {
-    setOperation(operation.concat(op));
+    setOperation(operation + op);
   };
 
   const calculateResult = () => {
     try {
       const eval_operation = eval(operation);
       setOperation(eval_operation);
-    } catch (err) {}
+    } catch (err) {
+      setOperation("");
+    }
   };
 
   const reset = () => {
@@ -129,13 +144,26 @@ const Calculator = () => {
           {layout.map((row, index) => (
             <div className="row" key={index}>
               {row.map((operation, index) => {
-                const { type, icon: Icon, text } = operation;
-                if (operation?.type) {
+                const { type, icon: Icon, text, span } = operation;
+                if (type === "empty") return <span></span>;
+                if (type) {
                   return (
                     <button
                       key={index}
                       className="operator-button font-bold"
-                      onClick={() => addOperation(type)}
+                      style={{ gridColumn: `span ${span} / span ${span}` }}
+                      onClick={() => {
+                        switch (type) {
+                          case "=":
+                            calculateResult();
+                            break;
+                          case "clear":
+                            reset();
+                            break;
+                          default:
+                            addOperation(type);
+                        }
+                      }}
                     >
                       {operation?.icon ? <Icon size={24} /> : text}
                     </button>

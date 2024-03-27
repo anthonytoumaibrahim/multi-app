@@ -14,6 +14,7 @@
   text-align: end;
   font-size: 2.75rem;
   border-radius: 10px;
+  overflow-x: auto;
 }
 .calculator .operations {
   display: flex;
