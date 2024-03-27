@@ -28,10 +28,7 @@ import mildly_cloudy_bg from "./images/midly-cloudy-bg.jpg";
 const Weather = () => {
   const app = apps.filter((app) => app.path === "weather")[0];
 
-  const API_URL =
-    "https://api.open-meteo.com/v1/forecast?latitude=33.8933&longitude=35.5016&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,weather_code,cloud_cover,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,rain_sum,precipitation_probability_max,wind_speed_10m_max&forecast_days=4";
-
-  const weatherData = {
+  const [weatherData, setWeatherData] = useState({
     latitude: 33.875,
     longitude: 35.5,
     generationtime_ms: 0.18405914306640625,
@@ -101,7 +98,10 @@ const Weather = () => {
       precipitation_probability_max: [0, 0, 0, 0],
       wind_speed_10m_max: [15.8, 10.8, 13.5, 9.0],
     },
-  };
+  });
+
+  const API_URL =
+    "https://api.open-meteo.com/v1/forecast?latitude=33.8933&longitude=35.5016&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,weather_code,cloud_cover,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,rain_sum,precipitation_probability_max,wind_speed_10m_max&forecast_days=4";
 
   return (
     <>
@@ -119,7 +119,7 @@ const Weather = () => {
       >
         <div className="time">
           <strong>Current weather</strong>
-          <span>5:50 PM</span>
+          <span>{new Date(weatherData.current.time).toLocaleTimeString()}</span>
         </div>
         <div className="temperature">
           <img
