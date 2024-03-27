@@ -105,6 +105,22 @@ const Calculator = () => {
     setOperation("");
   };
 
+  const handleOperation = (type) => {
+    switch (type) {
+      case "remove":
+        remove();
+        break;
+      case "=":
+        calculateResult();
+        break;
+      case "clear":
+        reset();
+        break;
+      default:
+        addOperation(type);
+    }
+  };
+
   // Add event listener to check for keyboard press
   const handleKeyDown = (e) => {
     const key = e.key.toLowerCase();
@@ -162,28 +178,13 @@ const Calculator = () => {
             <div className="row" key={index}>
               {row.map((operation, index) => {
                 const { type, icon: Icon, text, span } = operation;
-                if (type === "empty") return <span></span>;
                 if (type) {
                   return (
                     <button
                       key={index}
                       className="operator-button font-bold"
                       style={{ gridColumn: `span ${span} / span ${span}` }}
-                      onClick={() => {
-                        switch (type) {
-                          case "remove":
-                            remove();
-                            break;
-                          case "=":
-                            calculateResult();
-                            break;
-                          case "clear":
-                            reset();
-                            break;
-                          default:
-                            addOperation(type);
-                        }
-                      }}
+                      onClick={() => handleOperation(type)}
                     >
                       {operation?.icon ? <Icon size={24} /> : text}
                     </button>
