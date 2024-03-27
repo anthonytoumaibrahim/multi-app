@@ -1,5 +1,5 @@
 // React
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Styles
 import "./styles.css";
@@ -14,6 +14,7 @@ import WeatherCard from "./components/WeatherCard";
 // Icons
 import { FaWind, FaCloud } from "react-icons/fa";
 import { WiHumidity } from "react-icons/wi";
+import { TbSunrise, TbSunset2 } from "react-icons/tb";
 
 // Asset Icons
 import sunny_icon from "./images/icons/sunny.png";
@@ -103,6 +104,20 @@ const Weather = () => {
   const API_URL =
     "https://api.open-meteo.com/v1/forecast?latitude=33.8933&longitude=35.5016&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,weather_code,cloud_cover,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,rain_sum,precipitation_probability_max,wind_speed_10m_max&forecast_days=4";
 
+  useEffect(() => {
+    // Fetch Weather API data on load
+    const fetchWeatherData = async () => {
+      try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        setWeatherData(data);
+      } catch (error) {
+        console.error("An error has occurred: ", error);
+      }
+    };
+    fetchWeatherData();
+  }, []);
+
   return (
     <>
       <AppTitle icon={app.icon} color={app.colors.main} title={app.name}>
@@ -113,20 +128,25 @@ const Weather = () => {
         className="today-weather-card margin-b"
         style={{
           backgroundImage: `url('${
-            weatherData.current.cloud_cover <= 50 ? mildly_cloudy_bg : cloudy_bg
+            weatherData?.current.cloud_cover <= 50
+              ? mildly_cloudy_bg
+              : cloudy_bg
           }')`,
         }}
       >
         <div className="time">
           <strong>Current weather</strong>
-          <span>{new Date(weatherData.current.time).toLocaleTimeString()}</span>
+          <span>
+            {new Date(weatherData?.current.time).toLocaleTimeString()} (last
+            update)
+          </span>
         </div>
         <div className="temperature">
           <img
             src={
-              weatherData.current.cloud_cover <= 25
+              weatherData?.current.cloud_cover <= 25
                 ? sunny_icon
-                : weatherData.current.cloud_cover <= 70
+                : weatherData?.current.cloud_cover <= 70
                 ? mildly_cloudly_icon
                 : cloudy_icon
             }
@@ -135,12 +155,12 @@ const Weather = () => {
           />
           <div>
             <h1>
-              {weatherData.current.temperature_2m}{" "}
-              <sup>{weatherData.current_units.temperature_2m}</sup>
+              {weatherData?.current.temperature_2m}{" "}
+              <sup>{weatherData?.current_units.temperature_2m}</sup>
             </h1>
             <p>
-              Feels like {weatherData.current.apparent_temperature}
-              <sup>{weatherData.current_units.apparent_temperature}</sup>
+              Feels like {weatherData?.current.apparent_temperature}
+              <sup>{weatherData?.current_units.apparent_temperature}</sup>
             </p>
           </div>
         </div>
@@ -149,31 +169,45 @@ const Weather = () => {
             <p>Wind</p>
             <div>
               <FaWind size={24} />
-              {weatherData.current.wind_speed_10m}{" "}
-              {weatherData.current_units.wind_speed_10m}
+              {weatherData?.current.wind_speed_10m}
+              {weatherData?.current_units.wind_speed_10m}
             </div>
           </div>
           <div className="statistic">
             <p>Humidity</p>
             <div>
               <WiHumidity size={24} />
-              {weatherData.current.relative_humidity_2m}{" "}
-              {weatherData.current_units.relative_humidity_2m}
+              {weatherData?.current.relative_humidity_2m}
+              {weatherData?.current_units.relative_humidity_2m}
             </div>
           </div>
           <div className="statistic">
             <p>Cloud Cover</p>
             <div>
               <FaCloud size={24} />
-              {weatherData.current.cloud_cover}{" "}
-              {weatherData.current_units.cloud_cover}
+              {weatherData?.current.cloud_cover}
+              {weatherData?.current_units.cloud_cover}
+            </div>
+          </div>
+          <div className="statistic">
+            <p>Sunrise</p>
+            <div>
+              <TbSunrise size={24} />
+              {new Date(weatherData?.daily.sunrise?.[0]).toLocaleTimeString()}
+            </div>
+          </div>
+          <div className="statistic">
+            <p>Sunset</p>
+            <div>
+              <TbSunset2 size={24} />
+              {new Date(weatherData?.daily.sunset?.[0]).toLocaleTimeString()}
             </div>
           </div>
         </div>
       </div>
 
       <section className="weather-cards">
-        {weatherData.daily.time.map((date, index) => {
+        {weatherData?.daily.time.map((date, index) => {
           const [
             time,
             min_temperature,
@@ -185,13 +219,13 @@ const Weather = () => {
             sunset,
           ] = [
             date,
-            weatherData.daily.temperature_2m_min[index],
-            weatherData.daily.temperature_2m_max[index],
-            weatherData.daily.precipitation_probability_max[index],
-            weatherData.daily.rain_sum[index],
-            weatherData.daily.wind_speed_10m_max[index],
-            weatherData.daily.sunrise[index],
-            weatherData.daily.sunset[index],
+            weatherData?.daily.temperature_2m_min[index],
+            weatherData?.daily.temperature_2m_max[index],
+            weatherData?.daily.precipitation_probability_max[index],
+            weatherData?.daily.rain_sum[index],
+            weatherData?.daily.wind_speed_10m_max[index],
+            weatherData?.daily.sunrise[index],
+            weatherData?.daily.sunset[index],
           ];
           return (
             <WeatherCard
@@ -206,10 +240,10 @@ const Weather = () => {
               sunset={sunset}
               units={{
                 precipitation:
-                  weatherData.daily_units.precipitation_probability_max,
-                temp: weatherData.daily_units.temperature_2m_max,
-                rain: weatherData.daily_units.rain_sum,
-                wind: weatherData.daily_units.wind_speed_10m_max,
+                  weatherData?.daily_units.precipitation_probability_max,
+                temp: weatherData?.daily_units.temperature_2m_max,
+                rain: weatherData?.daily_units.rain_sum,
+                wind: weatherData?.daily_units.wind_speed_10m_max,
               }}
             />
           );
