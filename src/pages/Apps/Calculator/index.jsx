@@ -187,7 +187,9 @@ const Calculator = () => {
                     <button
                       key={index}
                       className="operator-button font-bold"
-                      style={{ gridColumn: `span ${span} / span ${span}` }}
+                      style={{
+                        gridColumn: `span ${span ?? 1} / span ${span ?? 1}`,
+                      }}
                       onClick={() => handleOperation(type)}
                     >
                       {operation?.icon ? <Icon size={24} /> : text}
